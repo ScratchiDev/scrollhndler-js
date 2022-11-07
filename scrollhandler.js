@@ -1,6 +1,8 @@
 var panels = document.querySelectorAll(".panels");
 //console.log(panels);
 
+var the_link;// a chaque scroll cette variable globale sera mise a jour: elle ferta alors reference au dernier
+//  lien ayant pris la couleur orange
 
 
 
@@ -22,6 +24,7 @@ function scroll_handler() // handler = getionnaire
 
 
    }
+
 
    // else {
 
@@ -46,23 +49,34 @@ function scroll_handler() // handler = getionnaire
 
          panels_on_screen = the_panels;
 
+         
 
       }
+      // var link_to_deactivate = document.querySelector("a[href='#" + the_panels.id + 
+      // "']");  
+      // link_to_deactivate.style.color = "";
 
+      //Solution 2 (a condition d'avoir declaré the_link de manière globale)
+      //(et d'éviter un bug), ce qui sera le cas lors du tout premier scroll 
+      //car une valeur n'est donné que plus bas dans cette fonction.
+if (the_link) {
 
+   the_link.style.color = "";
+}
+      
    });
 
    // Aprés le forEach, la variable panels_on_screen fait référence au bon
    // élément : le dernier qui a pu valider le test dans le forEach.
 
-   var panels_id = panels_on_screen.id
+   var panels_id = panels_on_screen.id;
+   
    console.log("Le .panel d'identifiant" + panels_id + "est à l'écran");
 
-   var the_link = document.querySelector("a[href='#" + panels_id + "']");
+  the_link = document.querySelector("a[href='#" + panels_id + "']");
 
    the_link.style.color = "orange"; // a modifier : il y a plus élégant...
    // a compléter: il faut aussi que les liens puissent revenir à la normal.
-
 
 }
 
